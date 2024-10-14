@@ -8,3 +8,14 @@ C:\Users\Arif\source\repos\ChecSumAutoBoot\ChecSumAutoBoot\bin\Debug\ChecSumAuto
 C:\Users\Arif\source\repos\ChecSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.exe
 C:\Users\Arif\source\repos\ChecSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.pdb
 C:\Users\Arif\source\repos\ChecSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.CheckSumAutoBoot.resources
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\bin\Debug\ChecSumAutoBoot.exe.config
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\bin\Debug\ChecSumAutoBoot.exe
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\bin\Debug\ChecSumAutoBoot.pdb
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\CheckSumAutoBoot.csproj.AssemblyReference.cache
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.CheckSumAutoBoot.resources
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.Properties.Resources.resources
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\CheckSumAutoBoot.csproj.GenerateResource.cache
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\CheckSumAutoBoot.csproj.CoreCompileInputs.cache
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.exe
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.pdb
+C:\Users\KOSE1\source\repos\CheckSumAutoBoot\ChecSumAutoBoot\obj\Debug\ChecSumAutoBoot.Screen.resources
