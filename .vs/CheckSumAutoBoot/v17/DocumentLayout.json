@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|c:\\users\\kose1\\source\\repos\\checksumautoboot\\checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|c:\\users\\kose1\\source\\repos\\checksumautoboot\\checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|c:\\users\\kose1\\source\\repos\\checksumautoboot\\checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\checksumautoboot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34FB4441-960E-4DFC-B794-52FCAC9DDEBA}|ChecSumAutoBoot\\CheckSumAutoBoot.csproj|solutionrelative:checsumautoboot\\screen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,54 +26,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Screen.cs",
-              "DocumentMoniker": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs",
-              "RelativeDocumentMoniker": "ChecSumAutoBoot\\Screen.cs",
-              "ToolTip": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs",
-              "RelativeToolTip": "ChecSumAutoBoot\\Screen.cs",
-              "ViewState": "AQIAAEgAAAAAAAAAAAAAAF4AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T12:18:40.857Z",
-              "EditorCaption": ""
             }
           ]
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "CheckSumAutoBoot.cs",
               "DocumentMoniker": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\CheckSumAutoBoot.cs",
               "RelativeDocumentMoniker": "ChecSumAutoBoot\\CheckSumAutoBoot.cs",
               "ToolTip": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\CheckSumAutoBoot.cs",
               "RelativeToolTip": "ChecSumAutoBoot\\CheckSumAutoBoot.cs",
-              "ViewState": "AQIAAEgBAAAAAAAAAAAQwGgBAAAbAAAA",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAjwIcAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T09:54:56.934Z",
+              "WhenOpened": "2024-10-15T13:06:57.733Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "Screen.cs",
+              "DocumentMoniker": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs",
+              "RelativeDocumentMoniker": "ChecSumAutoBoot\\Screen.cs",
+              "ToolTip": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs",
+              "RelativeToolTip": "ChecSumAutoBoot\\Screen.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAuwFYAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T11:23:47.064Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Screen.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs",
+              "RelativeDocumentMoniker": "ChecSumAutoBoot\\Screen.cs",
+              "ToolTip": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\Screen.cs [Design]",
+              "RelativeToolTip": "ChecSumAutoBoot\\Screen.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T09:52:19.156Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "CheckSumAutoBoot.cs [Design]",
               "DocumentMoniker": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\CheckSumAutoBoot.cs",
               "RelativeDocumentMoniker": "ChecSumAutoBoot\\CheckSumAutoBoot.cs",
               "ToolTip": "C:\\Users\\KOSE1\\source\\repos\\CheckSumAutoBoot\\ChecSumAutoBoot\\CheckSumAutoBoot.cs [Design]",
               "RelativeToolTip": "ChecSumAutoBoot\\CheckSumAutoBoot.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T09:00:14.418Z"
+              "WhenOpened": "2024-10-15T09:02:30.139Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

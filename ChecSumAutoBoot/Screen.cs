@@ -92,5 +92,9 @@ namespace ChecSumAutoBoot
             UnhookWindowsHookEx(_hookID); // Remove the hook
             base.OnFormClosing(e);
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
