@@ -220,11 +220,13 @@ namespace ChecSumAutoBoot
             }
 
         }
+        private bool isClosing = false;
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape && !isClosing)
             {
+                isClosing = true; // Kilidi aç
                 EnableTaskManager();
                 EnableControlPanel();
                 EnableRecycleBin();

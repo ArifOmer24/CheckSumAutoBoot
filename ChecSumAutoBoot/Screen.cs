@@ -14,6 +14,10 @@ namespace ChecSumAutoBoot
 {
     public partial class Screen : Form
     {
+
+        private const string CorrectPassword = "123456";
+
+
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
@@ -85,6 +89,11 @@ namespace ChecSumAutoBoot
                 Application.Exit(); // Uygulamayı tamamen kapat
 
             }
+            if (e.Control && e.Shift && e.KeyCode == Keys.P)
+            {
+                panelPassword.Visible = true; // Paneli göster
+                txtPassword.Focus(); // TextBox'a odaklan
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -95,6 +104,20 @@ namespace ChecSumAutoBoot
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.Text == CorrectPassword)
+            {
+                MessageBox.Show("Parola doğru! Uygulama kapatılıyor.");
+                Application.Exit(); // Uygulamayı kapatır
+            }
+            else
+            {
+                MessageBox.Show("Parola yanlış! Lütfen tekrar deneyin.");
+                txtPassword.Clear(); // TextBox'ı temizle
+            }
         }
     }
 }
