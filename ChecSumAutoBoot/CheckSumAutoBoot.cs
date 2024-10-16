@@ -55,9 +55,9 @@ namespace ChecSumAutoBoot
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                if (vkCode == (int)Keys.LWin || vkCode == (int)Keys.RWin) // Disable Windows key
+                if (vkCode == (int)Keys.LWin || vkCode == (int)Keys.RWin) // win tuş
                 {
-                    return (IntPtr)1; // Block the key press
+                    return (IntPtr)1; // tuş vuruşunu engelle sağ-sol win tuş
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
@@ -84,14 +84,7 @@ namespace ChecSumAutoBoot
             panel1.Location = new Point((this.ClientSize.Width - panel1.Width) / 2, (this.ClientSize.Height - panel1.Height) / 2);
             panel1.BackColor = Color.White;
             panel1.Paint += panel1_Paint;
-            DisableStartMenu();
-            HideSystemFolders();
-            DisableRightClick();
-            DisableTaskManager();
-            DisableControlPanel();
-            DisableRecycleBin();
-            CheckAndLogInternet();
-            RestartExplorer();
+            Disable();
         }
 
 
@@ -110,7 +103,7 @@ namespace ChecSumAutoBoot
                 CheckAndLogInternet();
 
                 Screen screenForm = new Screen();
-                screenForm.ShowDialog(); // Formu göster
+                screenForm.Show(); // Formu göster
                 this.Hide(); // CheckSumAutoBoot formunu gizle
             }
             catch (OperationCanceledException)
@@ -169,142 +162,26 @@ namespace ChecSumAutoBoot
 
 
 
-        void DisableStartMenu()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
-            key.SetValue("NoStartMenu", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
 
-        void HideSystemFolders()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
-            key.SetValue("NoDesktop", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
 
-        void DisableRightClick()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
-            key.SetValue("NoViewContextMenu", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
 
-        void DisableTaskManager()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System");
-            key.SetValue("DisableTaskMgr", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
-
-        void DisableControlPanel()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
-            key.SetValue("NoControlPanel", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
-
-        void DisableRecycleBin()
-        {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
-            key.SetValue("NoRecycleBin", 1, RegistryValueKind.DWord);
-            key.Close();
-        }
-
-        void RestartExplorer()
-        {
-            Process[] explorerProcesses = Process.GetProcessesByName("explorer");
-            foreach (var process in explorerProcesses)
-            {
-                process.Kill();
-            }
-
-        }
-        private bool isClosing = false;
+        //private bool isClosing = false;
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape && !isClosing)
-            {
-                isClosing = true; // Kilidi aç
-                EnableTaskManager();
-                EnableControlPanel();
-                EnableRecycleBin();
-                ShowSystemFolders();
-                EnableRightClick();
-                RestoreStartMenu();
-
-                RestartExplorer();  // Run RestartExplorer on a separate thread
-
-                this.Close(); // Close the form
-                Application.Exit(); // Close the application completely
-            }
+            //if (e.KeyCode == Keys.Escape /*&& !isClosing*/)
+            //{
+            //    Clear();
+            
+            //    Application.Exit(); // Close the application completely
+            //}
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             UnhookWindowsHookEx(_hookID); // Remove the hook
             base.OnFormClosing(e);
         }
-
-        void EnableTaskManager()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System", true);
-            if (key != null)
-            {
-                key.DeleteValue("DisableTaskMgr", true);
-                key.Close();
-            }
-        }
-
-        void EnableControlPanel()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
-            if (key != null)
-            {
-                key.DeleteValue("NoControlPanel", true);
-                key.Close();
-            }
-        }
-
-        void EnableRecycleBin()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
-            if (key != null)
-            {
-                key.DeleteValue("NoRecycleBin", true);
-                key.Close();
-            }
-        }
-
-        void ShowSystemFolders()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
-            if (key != null)
-            {
-                key.DeleteValue("NoDesktop", true);
-                key.Close();
-            }
-        }
-
-        void EnableRightClick()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
-            if (key != null)
-            {
-                key.DeleteValue("NoViewContextMenu", true);
-                key.Close();
-            }
-        }
-        void RestoreStartMenu()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
-            if (key != null)
-            {
-                key.DeleteValue("NoStartMenu", true);
-                key.Close();
-            }
-        }
-
 
 
 
@@ -330,8 +207,7 @@ namespace ChecSumAutoBoot
             }
         }
 
-
-        private void DisableActiveNetwork()
+        public static void DisableActiveNetwork()
         {
             var activeNetwork = NetworkInterface.GetAllNetworkInterfaces()
                 .FirstOrDefault(n => n.OperationalStatus == OperationalStatus.Up &&
@@ -344,20 +220,19 @@ namespace ChecSumAutoBoot
                 DisableNetwork(activeNetwork.Name);
             }
         }
-        private void EnableActiveNetwork()
+        public static void EnableActiveNetwork()
         {
             var activeNetwork = NetworkInterface.GetAllNetworkInterfaces()
-                .FirstOrDefault(n => n.OperationalStatus == OperationalStatus.Down &&
-                                     (n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
-                                      n.NetworkInterfaceType == NetworkInterfaceType.Ethernet));
+                   .FirstOrDefault(n => n.OperationalStatus == OperationalStatus.Down &&
+                                        (n.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 ||
+                                         n.NetworkInterfaceType == NetworkInterfaceType.Ethernet));
 
-            if (activeNetwork == null)
+            if (activeNetwork != null)
             {
                 // Ağ bağlantısını etkinleştir
                 EnableNetwork(activeNetwork.Name);
             }
         }
-
 
         public static void DisableNetwork(string networkName)
         {
@@ -371,11 +246,11 @@ namespace ChecSumAutoBoot
 
         public static void LogStatus(int status)
         {
-            string logFilePath = GetLogFilePath(); // Log dosyası yolunu al
+            string logFilePath = GetLogFilePath();
 
             // Log dosyasına yaz
-            File.AppendAllText(logFilePath, status.ToString() + Environment.NewLine);
-
+            string logEntry = $"{DateTime.Now}: {status}{Environment.NewLine}";
+            File.AppendAllText(logFilePath, logEntry);
         }
 
         private static string GetLogFilePath()
@@ -383,7 +258,8 @@ namespace ChecSumAutoBoot
             string logFileName = "Checksum.txt"; // Log dosyasının adı
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, logFileName);
         }
-        private void CheckAndLogInternet()
+
+        public static void CheckAndLogInternet()
         {
             int status = CheckInternetConnection() ? 1 : 0;
             LogStatus(status);
@@ -395,7 +271,147 @@ namespace ChecSumAutoBoot
         }
 
 
-        //güncel 14.10.2024
+
+
+
+
+        //Form1Load
+        public static void Disable()
+        {
+            DisableStartMenu();
+            HideSystemFolders();
+            DisableRightClick();
+            DisableTaskManager();
+            DisableControlPanel();
+            DisableRecycleBin();
+            RestartExplorer();
+        }
+
+        public static void DisableStartMenu()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
+            key.SetValue("NoStartMenu", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+        public static void HideSystemFolders()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
+            key.SetValue("NoDesktop", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+        public static void DisableRightClick()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
+            key.SetValue("NoViewContextMenu", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+        public static void DisableTaskManager()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System");
+            key.SetValue("DisableTaskMgr", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+        public static void DisableControlPanel()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
+            key.SetValue("NoControlPanel", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+        public static void DisableRecycleBin()
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer");
+            key.SetValue("NoRecycleBin", 1, RegistryValueKind.DWord);
+            key.Close();
+        }
+
+
+
+        // Özellik ve uygulama yaptırımlarını kaldır. Screen.exe keydown
+        public static void Clear()
+        {
+            EnableTaskManager();
+            EnableControlPanel();
+            EnableRecycleBin();
+            ShowSystemFolders();
+            EnableRightClick();
+            RestoreStartMenu();
+            EnableActiveNetwork();
+            RestartExplorer();
+        }
+
+        public static void EnableTaskManager()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System", true);
+            if (key != null)
+            {
+                key.DeleteValue("DisableTaskMgr", true);
+                key.Close();
+            }
+        }
+
+        public static void EnableControlPanel()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
+            if (key != null)
+            {
+                key.DeleteValue("NoControlPanel", true);
+                key.Close();
+            }
+        }
+
+        public static void EnableRecycleBin()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
+            if (key != null)
+            {
+                key.DeleteValue("NoRecycleBin", true);
+                key.Close();
+            }
+        }
+
+        public static void ShowSystemFolders()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
+            if (key != null)
+            {
+                key.DeleteValue("NoDesktop", true);
+                key.Close();
+            }
+        }
+
+        public static void EnableRightClick()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
+            if (key != null)
+            {
+                key.DeleteValue("NoViewContextMenu", true);
+                key.Close();
+            }
+        }
+        public static void RestoreStartMenu()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer", true);
+            if (key != null)
+            {
+                key.DeleteValue("NoStartMenu", true);
+                key.Close();
+            }
+        }
+
+        public static void RestartExplorer()
+        {
+            Process[] explorerProcesses = Process.GetProcessesByName("explorer");
+            foreach (var process in explorerProcesses)
+            {
+                process.Kill();
+            }
+
+        }
     }
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,13 +10,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ChecSumAutoBoot;
 
 namespace ChecSumAutoBoot
 {
     public partial class Screen : Form
     {
 
-        private const string CorrectPassword = "123456";
+        private const string CorrectPassword = "115599**";
 
 
         private const int WH_KEYBOARD_LL = 13;
@@ -33,6 +35,10 @@ namespace ChecSumAutoBoot
             this.TopMost = true;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(Screen_KeyDown);
+            this.txtPassword.KeyPress += new KeyPressEventHandler(txtPassword_KeyPress);
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            txtPassword.ContextMenuStrip = contextMenu;
+
 
             _proc = HookCallback;
             _hookID = SetHook(_proc);
@@ -55,9 +61,17 @@ namespace ChecSumAutoBoot
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                if (vkCode == (int)Keys.LWin || vkCode == (int)Keys.RWin) // Disable Windows key
+
+                // Windows tuşunu engelle
+                if (vkCode == (int)Keys.LWin || vkCode == (int)Keys.RWin)
                 {
-                    return (IntPtr)1; // Block the key press
+                    return (IntPtr)1; // Engelle
+                }
+
+                // Alt + Tab tuş kombinasyonunu engelle
+                if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt && vkCode == (int)Keys.Tab)
+                {
+                    return (IntPtr)1; // Engelle
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
@@ -78,23 +92,34 @@ namespace ChecSumAutoBoot
 
         private void Screen_Load(object sender, EventArgs e)
         {
+            panelPassword.Location = new Point((this.ClientSize.Width - panelPassword.Width) / 2, (this.ClientSize.Height - panelPassword.Height) / 2);
             this.Focus(); // Ensure the form has focus
         }
 
         private void Screen_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            //if (e.KeyCode == Keys.Escape)
+            //{
+            //    // Kullanıcıdan onay al
+            //    var result = MessageBox.Show("Uygulamayı kapatmak istiyor musunuz?", "Onay", MessageBoxButtons.YesNo);
+            //    if (result == DialogResult.Yes)
+            //    {
+            //        this.Close();
+            //        Application.Exit();
+            //    }
+            //}
+            if (e.Alt && e.KeyCode == Keys.Tab)
             {
-                this.Close(); // Close the form
-                Application.Exit(); // Uygulamayı tamamen kapat
-
+                e.SuppressKeyPress = true; // Engelle
+                e.Handled = true; // Engelle
             }
             if (e.Control && e.Shift && e.KeyCode == Keys.P)
             {
-                panelPassword.Visible = true; // Paneli göster
-                txtPassword.Focus(); // TextBox'a odaklan
+                panelPassword.Visible = true;
+                txtPassword.Focus();
             }
         }
+
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -110,14 +135,29 @@ namespace ChecSumAutoBoot
         {
             if (txtPassword.Text == CorrectPassword)
             {
-                MessageBox.Show("Parola doğru! Uygulama kapatılıyor.");
+                CheckSumAutoBoot.Clear();
+                MessageBox.Show("The password is correct! The application is closing.");
                 Application.Exit(); // Uygulamayı kapatır
             }
             else
             {
-                MessageBox.Show("Parola yanlış! Lütfen tekrar deneyin.");
+                MessageBox.Show("Password incorrect! Please try again.");
                 txtPassword.Clear(); // TextBox'ı temizle
             }
+        }
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Yapıştırma işlemi (Ctrl+V)
+            if (e.KeyChar == (char)22) // Ctrl+V ASCII değeri
+            {
+                e.Handled = true; // Tuş basımını engelle
+            }
+        }
+
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
