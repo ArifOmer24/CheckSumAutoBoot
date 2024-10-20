@@ -1,4 +1,4 @@
-CheckSumAutoBoot.exe | Block Windows applications and features with .Net Form App
+CheckSumAutoBoot.exe | Block Windows applications and features using a .NET Form App.
 
 Functionality:
 1. Application Behavior:
