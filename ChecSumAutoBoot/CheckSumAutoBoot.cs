@@ -173,7 +173,7 @@ namespace ChecSumAutoBoot
             //{
             //    Clear();
             
-            //    Application.Exit(); // Close the application completely
+            //    Application.Exit(); // Uygulamayı Kapat
             //}
         }
 
@@ -266,8 +266,8 @@ namespace ChecSumAutoBoot
 
 
 
-            //if (status == 1)
-            //    DisableActiveNetwork();
+            if (status == 1)
+                DisableActiveNetwork();
         }
 
 

@@ -101,7 +101,7 @@ namespace ChecSumAutoBoot
             //if (e.KeyCode == Keys.Escape)
             //{
             //    // Kullanıcıdan onay al
-            //    var result = MessageBox.Show("Uygulamayı kapatmak istiyor musunuz?", "Onay", MessageBoxButtons.YesNo);
+            //    var result = MessageBox.Show("the application will be closed", "Ok", MessageBoxButtons.YesNo);
             //    if (result == DialogResult.Yes)
             //    {
             //        this.Close();
